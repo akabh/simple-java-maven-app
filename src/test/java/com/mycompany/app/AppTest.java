@@ -2,10 +2,8 @@ package com.mycompany.app;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.After;
-import static org.junit.Assert.*;
+import org.testng.annotations.*;
+import org.testng.Assert;
 
 /**
  * Unit test for simple App.
@@ -15,7 +13,7 @@ public class AppTest
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    @Before
+    @BeforeClass
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
@@ -25,7 +23,7 @@ public class AppTest
         try {
             new App();
         } catch (Exception e) {
-            fail("Construction failed.");
+            Assert.fail("Construction failed.");
         }
     }
 
@@ -34,13 +32,13 @@ public class AppTest
     {
         App.main(null);
         try {
-            assertEquals("Hello World!" + System.getProperty("line.separator"), outContent.toString());
+            Assert.assertEquals("Hello World!" + System.getProperty("line.separator"), outContent.toString());
         } catch (AssertionError e) {
-            fail("\"message\" is not \"Hello World!\"");
+            Assert.fail("\"message\" is not \"Hello World!\"");
         }
     }
 
-    @After
+    @AfterClass
     public void cleanUpStreams() {
         System.setOut(null);
     }
